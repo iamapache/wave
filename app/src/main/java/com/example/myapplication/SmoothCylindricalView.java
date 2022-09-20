@@ -16,12 +16,10 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import androidx.annotation.RequiresApi;
-
 import static com.example.myapplication.SmoothCylindricalDrawable.TEXT_SIZE_PERCENT;
 
 public class SmoothCylindricalView extends View {
-    private final static int COLUMN_COUNT = 5;
+    private final static int COLUMN_COUNT = 6;
     private final float progressWidthPercent = 0.053f;
     private final float paddingIcon = 0.2f;
     private final float paddingAxisText = 0.0736f;
@@ -86,7 +84,9 @@ public class SmoothCylindricalView extends View {
      */
     public void setOriginData(List<Pair<Integer, Drawable>> data) {
         this.originData = data == null ? Collections.emptyList() : new ArrayList<>(data);
-        this.originData.sort((o1, o2) -> Integer.compare(o2.first, o1.first));
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            this.originData.sort((o1, o2) -> Integer.compare(o2.first, o1.first));
+        }
 
         progressDrawables.clear();
         for (int i = 0; i < COLUMN_COUNT && i < originData.size(); i++) {
@@ -110,6 +110,7 @@ public class SmoothCylindricalView extends View {
         list.add(new Pair<>(98, testDrawable));
         list.add(new Pair<>(68, testDrawable));
         list.add(new Pair<>(39, testDrawable));
+        list.add(new Pair<>(19, testDrawable));
         setOriginData(list);
     }
 
@@ -252,14 +253,20 @@ public class SmoothCylindricalView extends View {
         axisDrawable.setIconSize(paddingIconPixel, progressWidth * 1.2f);
 
         // 从原始数据中提取原始数值集合
-        List<Integer> originValues = originData.stream().map(it -> it.first).collect(Collectors.toList());
+        List<Integer> originValues = null;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+            originValues = originData.stream().map(it -> it.first).collect(Collectors.toList());
+        }
 
         // 计算得到坐标轴需要显示的刻度数值的集合
         List<Integer> marks = getMarks(originValues);
 
         // 计算得到坐标轴需要显示的各个刻度及其位置
-        List<Pair<Float, String>> textData = marks.stream()
-                .map(it -> new Pair<Float, String>((float) it, String.valueOf(it))).collect(Collectors.toList());
+        List<Pair<Float, String>> textData = null;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+            textData = marks.stream()
+                    .map(it -> new Pair<Float, String>((float) it, String.valueOf(it))).collect(Collectors.toList());
+        }
 
         // 根据原始数据计算坐标轴需要显示的范围
         Range<Float> axisRange = getRange(originValues);
@@ -282,7 +289,6 @@ public class SmoothCylindricalView extends View {
         return new Range<Float>(startMark, endValue);
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
     private static List<Integer> getMarks(List<Integer> data) {
         float max = Collections.max(data);
         float min = Collections.min(data);
@@ -307,7 +313,9 @@ public class SmoothCylindricalView extends View {
         for (int i = beginMark; i <= maxMark; i++) {
             marks.add(i * num);
         }
-        marks.sort(Integer::compareTo);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            marks.sort(Integer::compareTo);
+        }
 
         return marks;
     }

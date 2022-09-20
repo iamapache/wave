@@ -87,12 +87,17 @@ public class SmoothWaveView extends View {
         axisXData.add(new Pair<String, Float>("4/15-4/21", 2f));
         axisXData.add(new Pair<String, Float>("4/22-4/28", 3f));
         axisXData.add(new Pair<String, Float>("4/29-5/4", 4f));
+        axisXData.add(new Pair<String, Float>("5/11-5/14", 5f));
+        axisXData.add(new Pair<String, Float>("5/19-5/24", 6f));
         axisDrawable.setOriginDataX(axisXData);
         List<Pair<String, Float>> axisYData = new ArrayList<>();
-        axisYData.add(new Pair<String, Float>("5", 5f));
+        axisYData.add(new Pair<String, Float>("1", 5f));
         axisYData.add(new Pair<String, Float>("10", 10f));
         axisYData.add(new Pair<String, Float>("15", 15f));
         axisYData.add(new Pair<String, Float>("20", 20f));
+        axisYData.add(new Pair<String, Float>("25", 25f));
+        axisYData.add(new Pair<String, Float>("26", 26f));
+        axisYData.add(new Pair<String, Float>("35", 35f));
         axisDrawable.setOriginDataY(axisYData);
         axisDrawable.setFocusIndex(2);
         axisDrawable.setCallback(this);
@@ -106,6 +111,8 @@ public class SmoothWaveView extends View {
         data.add(new PointF(2f, 9f));
         data.add(new PointF(3f, 0f));
         data.add(new PointF(4f, 13f));
+        data.add(new PointF(5f, 13f));
+        data.add(new PointF(6f, 23f));
         waveDrawable1.setOriginData(data);
         waveDrawable1.setAxisXRange(new Range<>(0f, 4f));
         waveDrawable1.setAxisYRange(new Range<>(0f, 22f));
@@ -121,7 +128,9 @@ public class SmoothWaveView extends View {
         data2.add(new PointF(1f, 12f));
         data2.add(new PointF(2f, 2f));
         data2.add(new PointF(3f, 0f));
-        data2.add(new PointF(4f, 0f));
+        data2.add(new PointF(4f, 10f));
+        data2.add(new PointF(5f, 15f));
+        data2.add(new PointF(6f, 20f));
         waveDrawable2.setOriginData(data2);
         waveDrawable2.setAxisXRange(new Range<>(0f, 4f));
         waveDrawable2.setAxisYRange(new Range<>(0f, 22f));

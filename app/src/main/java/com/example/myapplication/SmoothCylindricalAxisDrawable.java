@@ -24,7 +24,7 @@ public class SmoothCylindricalAxisDrawable extends Drawable {
 
     private List<Pair<Float, Drawable>> iconData;
     private List<Pair<Float, String>> axisData;
-    private Range axisRange;
+    private Range<Float> axisRange;
     private float iconSize;
     private float iconRectSize;
 
@@ -54,8 +54,7 @@ public class SmoothCylindricalAxisDrawable extends Drawable {
     private void drawAxis(Canvas canvas) {
         paint.setStyle(Paint.Style.STROKE);
         switch (align) {
-            case Gravity.LEFT: // 画图标轴(左方)
-                 canvas.drawLine(visibleRect.left, getBounds().top, visibleRect.left, getBounds().bottom, paint);
+            case Gravity.LEFT: // 画图标轴(左方) canvas.drawLine(visibleRect.left, getBounds().top, visibleRect.left, getBounds().bottom, paint);
 
                 // 画数字轴(下方)
                 canvas.drawLine(visibleRect.left, visibleRect.bottom, visibleRect.right, visibleRect.bottom, paint);
@@ -92,14 +91,14 @@ public class SmoothCylindricalAxisDrawable extends Drawable {
             switch (align) {
                 case Gravity.LEFT:
                 case Gravity.RIGHT:
-//                    scale = visibleRect.width() / (axisRange.getUpper() - axisRange.getLower());
-//                    float offsetX = (textInfo.first - axisRange.getLower()) * scale;
-                    float x = 0;
-//                    if (align == Gravity.LEFT) {
-//                        x = visibleRect.left + offsetX;
-//                    } else {
-//                        x = visibleRect.right - offsetX;
-//                    }
+                    scale = visibleRect.width() / (axisRange.getUpper() - axisRange.getLower());
+                    float offsetX = (textInfo.first - axisRange.getLower()) * scale;
+                    float x;
+                    if (align == Gravity.LEFT) {
+                        x = visibleRect.left + offsetX;
+                    } else {
+                        x = visibleRect.right - offsetX;
+                    }
 
                     paint.setPathEffect(dashEffect);
                     paint.setStyle(Paint.Style.STROKE);
@@ -123,13 +122,13 @@ public class SmoothCylindricalAxisDrawable extends Drawable {
                 case Gravity.TOP:
                 case Gravity.BOTTOM:
                 default:
-//                    scale = visibleRect.height() / (axisRange.getUpper() - axisRange.getLower());
-//                    float offsetY = (textInfo.first - axisRange.getLower()) * scale;
-                    float y = 0;
+                    scale = visibleRect.height() / (axisRange.getUpper() - axisRange.getLower());
+                    float offsetY = (textInfo.first - axisRange.getLower()) * scale;
+                    float y;
                     if (align == Gravity.BOTTOM) {
-//                        y = visibleRect.bottom - offsetY;
+                        y = visibleRect.bottom - offsetY;
                     } else {
-//                        y = visibleRect.top + offsetY;
+                        y = visibleRect.top + offsetY;
                     }
 
                     paint.setPathEffect(dashEffect);
