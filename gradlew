@@ -1,5 +1,7 @@
 #!/usr/bin/env sh
-
+https://www-uat.musegaming.co/aboutus?type=privacy
+https://www.freeprivacypolicy.com/live/7804057c-8759-40aa-a079-ac911e2f61df
+https://www.freeprivacypolicy.com/live/7804057c-8759-40aa-a079-ac911e2f61df
 #
 # Copyright 2015 the original author or authors.
 #
